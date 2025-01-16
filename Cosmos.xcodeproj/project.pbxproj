@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		879FCAB02D39735A00DDA4C0 /* SplineRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 879FCAAF2D39735A00DDA4C0 /* SplineRuntime */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		97043AF12D0F3CFC0093FFD0 /* Cosmos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cosmos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				879FCAB02D39735A00DDA4C0 /* SplineRuntime in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = Cosmos;
 			packageProductDependencies = (
+				879FCAAF2D39735A00DDA4C0 /* SplineRuntime */,
 			);
 			productName = Cosmos;
 			productReference = 97043AF12D0F3CFC0093FFD0 /* Cosmos.app */;
@@ -107,6 +113,9 @@
 			);
 			mainGroup = 97043AE82D0F3CFC0093FFD0;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				879FCAAE2D39735A00DDA4C0 /* XCRemoteSwiftPackageReference "spline-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 97043AF22D0F3CFC0093FFD0 /* Products */;
 			projectDirPath = "";
@@ -341,6 +350,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		879FCAAE2D39735A00DDA4C0 /* XCRemoteSwiftPackageReference "spline-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/splinetool/spline-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		879FCAAF2D39735A00DDA4C0 /* SplineRuntime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 879FCAAE2D39735A00DDA4C0 /* XCRemoteSwiftPackageReference "spline-ios" */;
+			productName = SplineRuntime;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 97043AE92D0F3CFC0093FFD0 /* Project object */;
 }
