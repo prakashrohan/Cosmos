@@ -11,7 +11,7 @@ import SwiftUI
 struct CosmosApp: App {
     var body: some Scene {
         WindowGroup {
-            NASA3DModelScreen()
+            ARPlacementView(usdzFileName: "ISS_stationary 1")
         }
     }
 }
