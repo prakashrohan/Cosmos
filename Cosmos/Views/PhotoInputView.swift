@@ -123,3 +123,6 @@ struct ARViewPlaceholder: View {
         .shadow(radius: 4)
     }
 }
+#Preview {
+   PhotoInputView()
+}
