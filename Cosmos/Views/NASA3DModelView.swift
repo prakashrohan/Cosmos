@@ -17,16 +17,38 @@ struct NASA3DModelView: UIViewRepresentable {
 }
 
 struct NASA3DModelScreen: View {
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
-        ZStack{
+        ZStack {
             Color.black
                 .ignoresSafeArea()
+            
             NASA3DModelView()
             
+            VStack {
+                HStack {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        ZStack {
+                            Circle()
+                                .fill(Color.white)
+                                .frame(width: 40, height: 40)
+                            Image(systemName: "xmark")
+                                .foregroundColor(.black)
+                                .font(.system(size: 18, weight: .bold))
+                        }
+                    }
+                    .padding(.leading, 5)
+                    .padding(.top, 5)
+                    
+                    Spacer()
+                }
+                
+                Spacer()
+            }
         }
-       
-           
-           
     }
 }
 

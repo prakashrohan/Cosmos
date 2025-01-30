@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		875B46962D46A184008E073A /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875B46882D46A0B5008E073A /* ARKit.framework */; };
+		875B46992D46A185008E073A /* RealityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875B468A2D46A0C7008E073A /* RealityKit.framework */; };
 		879FCAB02D39735A00DDA4C0 /* SplineRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 879FCAAF2D39735A00DDA4C0 /* SplineRuntime */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		875B46882D46A0B5008E073A /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
+		875B468A2D46A0C7008E073A /* RealityKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealityKit.framework; path = System/Library/Frameworks/RealityKit.framework; sourceTree = SDKROOT; };
 		97043AF12D0F3CFC0093FFD0 /* Cosmos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cosmos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -40,6 +44,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				875B46992D46A185008E073A /* RealityKit.framework in Frameworks */,
+				875B46962D46A184008E073A /* ARKit.framework in Frameworks */,
 				879FCAB02D39735A00DDA4C0 /* SplineRuntime in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -47,10 +53,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		875B46872D46A0B5008E073A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				875B468A2D46A0C7008E073A /* RealityKit.framework */,
+				875B46882D46A0B5008E073A /* ARKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		97043AE82D0F3CFC0093FFD0 = {
 			isa = PBXGroup;
 			children = (
 				97043AF32D0F3CFC0093FFD0 /* Cosmos */,
+				875B46872D46A0B5008E073A /* Frameworks */,
 				97043AF22D0F3CFC0093FFD0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -279,11 +295,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cosmos/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "To enable augmented reality features";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show constellations in the sky.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -310,11 +328,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cosmos/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "To enable augmented reality features";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show constellations in the sky.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
