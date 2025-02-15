@@ -12,7 +12,7 @@ class CoreMLPrediction {
     private let model: VNCoreMLModel
 
     init() {
-        // Load the Core ML model
+        
         let mlModel = try! MULTICONSTELLATIONS_1(configuration: MLModelConfiguration())
         model = try! VNCoreMLModel(for: mlModel.model)
     }
@@ -24,7 +24,7 @@ class CoreMLPrediction {
             return
         }
 
-        // Create a request for the Core ML model
+  
         let request = VNCoreMLRequest(model: model) { request, error in
             if let error = error {
                 print("Error making prediction: \(error)")
@@ -32,7 +32,7 @@ class CoreMLPrediction {
                 return
             }
 
-            // Process the prediction results
+            
             if let results = request.results as? [VNClassificationObservation] {
                 completion(results)
             } else {
@@ -40,7 +40,7 @@ class CoreMLPrediction {
             }
         }
 
-        // Perform the request
+        
         let handler = VNImageRequestHandler(ciImage: ciImage, options: [:])
         do {
             try handler.perform([request])

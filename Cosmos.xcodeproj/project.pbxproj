@@ -10,11 +10,19 @@
 		875B46962D46A184008E073A /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875B46882D46A0B5008E073A /* ARKit.framework */; };
 		875B46992D46A185008E073A /* RealityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875B468A2D46A0C7008E073A /* RealityKit.framework */; };
 		879FCAB02D39735A00DDA4C0 /* SplineRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 879FCAAF2D39735A00DDA4C0 /* SplineRuntime */; };
+		87CB60F72D61251E004C450A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 87CB60F62D61251E004C450A /* FirebaseAnalytics */; };
+		87CB60F92D61251E004C450A /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 87CB60F82D61251E004C450A /* FirebaseAnalyticsOnDeviceConversion */; };
+		87CB60FB2D61251E004C450A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 87CB60FA2D61251E004C450A /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		87CB60FD2D61251E004C450A /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 87CB60FC2D61251E004C450A /* FirebaseAppCheck */; };
+		87CB60FF2D61251E004C450A /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 87CB60FE2D61251E004C450A /* FirebaseAppDistribution-Beta */; };
+		87CB61012D6127C2004C450A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87CB61002D6127C2004C450A /* GoogleService-Info.plist */; };
+		87CB61052D61288F004C450A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 87CB61042D61288F004C450A /* FirebaseAuth */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		875B46882D46A0B5008E073A /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		875B468A2D46A0C7008E073A /* RealityKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealityKit.framework; path = System/Library/Frameworks/RealityKit.framework; sourceTree = SDKROOT; };
+		87CB61002D6127C2004C450A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		97043AF12D0F3CFC0093FFD0 /* Cosmos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cosmos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -45,8 +53,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				875B46992D46A185008E073A /* RealityKit.framework in Frameworks */,
+				87CB60FB2D61251E004C450A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				875B46962D46A184008E073A /* ARKit.framework in Frameworks */,
+				87CB60F92D61251E004C450A /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
+				87CB61052D61288F004C450A /* FirebaseAuth in Frameworks */,
+				87CB60FD2D61251E004C450A /* FirebaseAppCheck in Frameworks */,
+				87CB60F72D61251E004C450A /* FirebaseAnalytics in Frameworks */,
 				879FCAB02D39735A00DDA4C0 /* SplineRuntime in Frameworks */,
+				87CB60FF2D61251E004C450A /* FirebaseAppDistribution-Beta in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +82,7 @@
 				97043AF32D0F3CFC0093FFD0 /* Cosmos */,
 				875B46872D46A0B5008E073A /* Frameworks */,
 				97043AF22D0F3CFC0093FFD0 /* Products */,
+				87CB61002D6127C2004C450A /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,6 +115,12 @@
 			name = Cosmos;
 			packageProductDependencies = (
 				879FCAAF2D39735A00DDA4C0 /* SplineRuntime */,
+				87CB60F62D61251E004C450A /* FirebaseAnalytics */,
+				87CB60F82D61251E004C450A /* FirebaseAnalyticsOnDeviceConversion */,
+				87CB60FA2D61251E004C450A /* FirebaseAnalyticsWithoutAdIdSupport */,
+				87CB60FC2D61251E004C450A /* FirebaseAppCheck */,
+				87CB60FE2D61251E004C450A /* FirebaseAppDistribution-Beta */,
+				87CB61042D61288F004C450A /* FirebaseAuth */,
 			);
 			productName = Cosmos;
 			productReference = 97043AF12D0F3CFC0093FFD0 /* Cosmos.app */;
@@ -131,6 +152,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				879FCAAE2D39735A00DDA4C0 /* XCRemoteSwiftPackageReference "spline-ios" */,
+				87CB60F52D61251E004C450A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 97043AF22D0F3CFC0093FFD0 /* Products */;
@@ -147,6 +169,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87CB61012D6127C2004C450A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +317,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cosmos/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "To enable augmented reality features";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show constellations in the sky.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -327,6 +351,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cosmos/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "To enable augmented reality features";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show constellations in the sky.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -380,6 +405,14 @@
 				kind = branch;
 			};
 		};
+		87CB60F52D61251E004C450A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.8.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -387,6 +420,36 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 879FCAAE2D39735A00DDA4C0 /* XCRemoteSwiftPackageReference "spline-ios" */;
 			productName = SplineRuntime;
+		};
+		87CB60F62D61251E004C450A /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 87CB60F52D61251E004C450A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		87CB60F82D61251E004C450A /* FirebaseAnalyticsOnDeviceConversion */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 87CB60F52D61251E004C450A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsOnDeviceConversion;
+		};
+		87CB60FA2D61251E004C450A /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 87CB60F52D61251E004C450A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		87CB60FC2D61251E004C450A /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 87CB60F52D61251E004C450A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+		87CB60FE2D61251E004C450A /* FirebaseAppDistribution-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 87CB60F52D61251E004C450A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseAppDistribution-Beta";
+		};
+		87CB61042D61288F004C450A /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 87CB60F52D61251E004C450A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
