@@ -12,6 +12,9 @@ struct ContentView: View {
         TabView {
             APODView()
                 .tabItem { Label("Today's APOD", systemImage: "photo") }
+            
+            ProfileView()
+                .tabItem { Label("Profile", systemImage: "home") }
 
             APODRangeView()
                 .tabItem { Label("Explore Range", systemImage: "calendar") }

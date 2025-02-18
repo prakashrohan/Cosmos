@@ -2,6 +2,7 @@ import SwiftUI
 import Combine
 import ARKit
 import SceneKit
+import AVKit
 
 struct APODView: View {
     @State private var apod: APOD?
@@ -9,54 +10,99 @@ struct APODView: View {
     @State private var showAR = false // Toggle AR View
 
     var body: some View {
-        VStack {
-            if showAR {
-                // Display AR View with APOD Image
-                if let imageURL = apod?.hdurl ?? apod?.url {
-                    ARAPODView(imageURL: imageURL)
-                        .edgesIgnoringSafeArea(.all)
+        ZStack {
+            // 🔵 Space Gradient Background
+            LinearGradient(gradient: Gradient(colors: [Color.black, Color.blue.opacity(0.3)]),
+                           startPoint: .topLeading,
+                           endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all)
+
+            VStack {
+                if showAR {
+                    // 🌌 AR View with APOD Image
+                    if let imageURL = apod?.hdurl ?? apod?.url {
+                        ARAPODView(imageURL: imageURL)
+                            .edgesIgnoringSafeArea(.all)
+                    } else {
+                        Text("No Image URL Available")
+                            .foregroundColor(.red)
+                            .padding()
+                    }
                 } else {
-                    Text("No Image URL Available")
-                        .foregroundColor(.red)
-                        .padding()
-                }
-            } else {
-                // Standard APOD View
-                if let apod = apod {
-                    if apod.media_type == "image" {
-                        AsyncImage(url: URL(string: apod.url ?? "")) { image in
-                            image
-                                .resizable()
-                                .scaledToFit()
-                        } placeholder: {
-                            ProgressView()
+                    // 📷 APOD Image / Video View
+                    if let apod = apod {
+                        VStack(spacing: 15) {
+                            if apod.media_type == "image" {
+                                AsyncImage(url: URL(string: apod.url ?? "")) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFit()
+                                        .cornerRadius(12)
+                                        .shadow(radius: 8)
+                                        .padding()
+                                } placeholder: {
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                        .scaleEffect(1.5)
+                                        .padding()
+                                }
+                            } else if apod.media_type == "video" {
+                                VideoPlayerView(urlString: apod.url ?? "")
+                                    .cornerRadius(12)
+                                    .shadow(radius: 8)
+                                    .padding()
+                            }
+
+                            // 📜 APOD Title
+                            Text(apod.title ?? "No Title")
+                                .font(.title.bold())
+                                .foregroundColor(.white)
+                                .shadow(color: .blue.opacity(0.8), radius: 5, x: 0, y: 3)
+                                .padding(.horizontal)
+
+                            // 📝 APOD Explanation
+                            ScrollView {
+                                Text(apod.explanation ?? "No Explanation Available")
+                                    .font(.body)
+                                    .foregroundColor(.white.opacity(0.8))
+                                    .padding()
+                                    .background(BlurView(style: .systemUltraThinMaterialDark))
+                                    .cornerRadius(12)
+                                    .padding(.horizontal)
+                            }
+                            .frame(height: 180)
+
+                            // 🚀 AR Toggle Button
+                            Button(action: {
+                                withAnimation {
+                                    showAR.toggle()
+                                }
+                            }) {
+                                Text(showAR ? "Exit AR Mode" : "View in AR")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.9), Color.purple.opacity(0.9)]),
+                                                               startPoint: .leading, endPoint: .trailing))
+                                    .cornerRadius(12)
+                                    .shadow(radius: 8)
+                            }
+                            .padding(.horizontal, 30)
+                            .padding(.bottom, 20)
                         }
-                    } else if apod.media_type == "video" {
-                        VideoPlayerView(urlString: apod.url ?? "")
+                        .padding()
+                        .background(BlurView(style: .systemUltraThinMaterialDark))
+                        .cornerRadius(20)
+                        .shadow(radius: 10)
+                        .padding(.horizontal, 20)
+                    } else {
+                        ProgressView("Loading APOD...")
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                            .scaleEffect(1.5)
+                            .padding()
                     }
-
-                    Text(apod.title ?? "No Title")
-                        .font(.title)
-                        .padding()
-                    Text(apod.explanation ?? "No Explanation")
-                        .padding()
-                } else {
-                    ProgressView("Loading...")
                 }
-
-                // Button to toggle AR View
-                Button(action: {
-                    withAnimation {
-                        showAR.toggle()
-                    }
-                }) {
-                    Text(showAR ? "Exit AR" : "View in AR")
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.blue)
-                        .cornerRadius(8)
-                }
-                .padding()
             }
         }
         .onAppear {
@@ -67,8 +113,8 @@ struct APODView: View {
     }
 }
 
-// MARK: - AR View to Display APOD Image as a 3D Floating Plane
-struct ARAPODview: UIViewRepresentable {
+// MARK: - 🌌 AR View (Floating APOD Image)
+struct aRAPODView: UIViewRepresentable {
     let imageURL: String
 
     func makeUIView(context: Context) -> ARSCNView {
@@ -76,11 +122,9 @@ struct ARAPODview: UIViewRepresentable {
         arView.scene = SCNScene()
         arView.automaticallyUpdatesLighting = true
 
-        // Start AR session
         let configuration = ARWorldTrackingConfiguration()
         arView.session.run(configuration)
 
-        // Load the APOD image and display it in AR
         addImageToScene(arView: arView, imageURL: imageURL)
 
         return arView
@@ -89,7 +133,6 @@ struct ARAPODview: UIViewRepresentable {
     func updateUIView(_ uiView: ARSCNView, context: Context) {}
 
     private func addImageToScene(arView: ARSCNView, imageURL: String) {
-        // Fetch the image
         guard let url = URL(string: imageURL),
               let imageData = try? Data(contentsOf: url),
               let image = UIImage(data: imageData) else {
@@ -97,27 +140,21 @@ struct ARAPODview: UIViewRepresentable {
             return
         }
 
-        // Create a plane with the APOD image
-        let plane = SCNPlane(width: 1.5, height: 1.0) // Adjust size as needed
+        let plane = SCNPlane(width: 1.5, height: 1.0)
         plane.firstMaterial?.diffuse.contents = image
         plane.firstMaterial?.isDoubleSided = true
 
-        // Create a node and place it 2 meters in front of the user
         let node = SCNNode(geometry: plane)
         node.position = SCNVector3(0, 0, -2)
 
-        // Add a rotation animation for interactivity
         let rotateAction = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat.pi, z: 0, duration: 10))
         node.runAction(rotateAction)
 
-        // Add the node to the AR scene
         arView.scene.rootNode.addChildNode(node)
     }
 }
 
-// MARK: - Video Player View (For APOD Videos)
-import AVKit
-
+// MARK: - 📽 Video Player for APOD Videos
 struct VideoPlayerView: View {
     let urlString: String
 
@@ -129,5 +166,14 @@ struct VideoPlayerView: View {
             Text("Unable to load video.")
                 .foregroundColor(.red)
         }
+    }
+}
+
+
+
+// MARK: - 📸 Preview
+struct APODView_Previews: PreviewProvider {
+    static var previews: some View {
+        APODView()
     }
 }

@@ -1,0 +1,72 @@
+# Xcode
+.DS_Store
+UserInterfaceState.xcuserstate
+xcuserdata/
+*.xcscmblueprint
+
+# Build artifacts
+DerivedData/
+Build/
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.swiftpm/
+Package.resolved
+.build/
+
+# CocoaPods
+Pods/
+*.xcworkspace
+!default.podspec
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# Xcode Specific
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+
+# Playgrounds
+playground.xcworkspace/
+Timeline.xctimeline
+playground.xcworkspace/
+
+# Certificates
+*.p12
+*.mobileprovision
+*.cer
+*.crt
+*.pem
+
+# Firebase
+GoogleService-Info.plist
+
+# Other IDEs and Editor Files
+.idea/
+.vscode/
+*.iml
+
+# Logs
+*.log
+
+# Temporary files
+*.swp
+*.swo
+*.swn
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# XCFrameworks
+*.xcframework

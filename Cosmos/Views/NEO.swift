@@ -1,20 +1,13 @@
-//
-//  NEO.swift
-//  Cosmos
-//
-//  Created by Rohan Prakash on 24/01/25.
-//
-
 import SwiftUI
 
-struct NearEarthObject: Codable, Identifiable {
+struct NearEarthObject: Codable, Identifiable, Equatable {
     let id: String
     let name: String
     let nasa_jpl_url: String
     let close_approach_data: [CloseApproachData]
 }
 
-struct CloseApproachData: Codable {
+struct CloseApproachData: Codable,Equatable {
     let close_approach_date_full: String
 }
 
@@ -53,33 +46,79 @@ struct NEOView: View {
     @StateObject private var viewModel = NEOViewModel()
     
     var body: some View {
-        NavigationView {
-            List(viewModel.neos) { neo in
-                VStack(alignment: .leading, spacing: 10) {
-                    Text(neo.name)
-                        .font(.headline)
-                    
-                    if let approachData = neo.close_approach_data.first {
-                        Text("Close Approach Date: \(approachData.close_approach_date_full)")
-                            .font(.subheadline)
+        ZStack {
+            // 🔵 Space-Themed Gradient Background
+            LinearGradient(gradient: Gradient(colors: [Color.black, Color.blue.opacity(0.3)]),
+                           startPoint: .topLeading,
+                           endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all)
+
+            ScrollView {
+                VStack(spacing: 15) {
+                    ForEach(viewModel.neos) { neo in
+                        NEOCard(neo: neo)
+                            .transition(.slide)
+                            .animation(.easeInOut(duration: 0.6), value: viewModel.neos)
                     }
-                    
-                    Link("View More", destination: URL(string: neo.nasa_jpl_url)!)
-                        .foregroundColor(.blue)
                 }
-                .padding()
+                .padding(.horizontal, 20)
             }
-            .navigationTitle("Near-Earth Objects")
-            .onAppear {
-                viewModel.fetchNEOData()
-            }
+        }
+        .navigationTitle("Near-Earth Objects")
+        .onAppear {
+            viewModel.fetchNEOData()
         }
     }
 }
 
+// MARK: - 🌠 Modern NEO Card
+struct NEOCard: View {
+    let neo: NearEarthObject
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            // 🌍 NEO Name
+            Text(neo.name)
+                .font(.title3.bold())
+                .foregroundColor(.white)
+                .shadow(radius: 5)
+
+            // 📅 Close Approach Date
+            if let approachData = neo.close_approach_data.first {
+                Text("🗓 Close Approach: \(approachData.close_approach_date_full)")
+                    .font(.subheadline)
+                    .foregroundColor(.white.opacity(0.8))
+            }
+
+            // 🔗 NASA Link
+            Link(destination: URL(string: neo.nasa_jpl_url)!) {
+                HStack {
+                    Image(systemName: "link")
+                    Text("View More on NASA")
+                        .fontWeight(.bold)
+                }
+                .foregroundColor(.white)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.9), Color.purple.opacity(0.9)]),
+                                           startPoint: .leading, endPoint: .trailing))
+                .cornerRadius(12)
+                .shadow(radius: 8)
+            }
+            .padding(.top, 8)
+        }
+        .padding()
+        .background(BlurView(style: .systemUltraThinMaterialDark))
+        .cornerRadius(15)
+        .shadow(radius: 10)
+    }
+}
+
+
+
+// MARK: - 📸 Preview
 struct NEOView_Previews: PreviewProvider {
     static var previews: some View {
         NEOView()
     }
 }
-
