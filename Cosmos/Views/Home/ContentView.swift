@@ -49,8 +49,8 @@ struct HomeView: View {
                         SectionHeader(title: "Featured Today")
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 20) {
-                                homeCards(title: "Today's APOD", subtitle: "Stunning cosmic image", icon: "sparkles", width: 300, height: 200, imageName: "constellation-1")
-                                homeCards(title: "AR Spotlight", subtitle: "Place planets in your room", icon: "arkit", width: 300, height: 200, imageName: "home-img-1")
+                                HomeCard(title: "Today's APOD", subtitle: "Stunning cosmic image", icon: "sparkles", width: 300, height: 200, imageName: "constellation-1", destination: APODView())
+                                HomeCard(title: "AR Spotlight", subtitle: "Place planets in your room", icon: "arkit", width: 300, height: 200, imageName: "home-img-1", destination: ARSpotlightView())
                             }
                             .padding(.horizontal, 20)
                         }
@@ -64,13 +64,13 @@ struct HomeView: View {
                             ],
                             spacing: 20
                         ) {
-                            homeCards(title: "Date Range Gallery", subtitle: "Browse by date", icon: "calendar", width: 180, height: 220, imageName: nil)
+                            HomeCard(title: "Date Range Gallery", subtitle: "Browse by date", icon: "calendar", width: 180, height: 220, imageName: nil, destination: ARSpotlightView())
                             
-                            homeCards(title: "Constellation Predictor", subtitle: "AI reveals star patterns", icon: "cpu", width: 180, height: 220, imageName: nil)
+                            HomeCard(title: "Constellation Predictor", subtitle: "AI reveals star patterns", icon: "cpu", width: 180, height: 220, imageName: nil, destination: ARSpotlightView())
                             
-                            homeCards(title: "Deep Space Gallery", subtitle: "Explore nebulae & galaxies", icon: "globe", width: 180, height: 220, imageName: nil)
+                            HomeCard(title: "Deep Space Gallery", subtitle: "Explore nebulae & galaxies", icon: "globe", width: 180, height: 220, imageName: nil, destination: ARSpotlightView())
                             
-                            homeCards(title: "Favorites", subtitle: "Your saved shots", icon: "star.fill", width: 180, height: 220, imageName: nil)
+                            HomeCard(title: "Favorites", subtitle: "Your saved shots", icon: "star.fill", width: 180, height: 220, imageName: nil, destination: ARSpotlightView())
                         }
                         .padding(.horizontal, 20)
 
@@ -78,11 +78,11 @@ struct HomeView: View {
                         SectionHeader(title: "Discover More")
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 30) {
-                                homeCards(title: "Night Sky Tips", subtitle: "Improve your observation", icon: "lightbulb", width: 300, height: 200, imageName: "home-img-2")
+                                HomeCard(title: "Night Sky Tips", subtitle: "Improve your observation", icon: "lightbulb", width: 300, height: 200, imageName: "home-img-2", destination: ARSpotlightView())
                                 
-                                homeCards(title: "Mythology & Stars", subtitle: "Learn the legends", icon: "book", width: 300, height: 200, imageName: "home-img-3")
+                                HomeCard(title: "Mythology & Stars", subtitle: "Learn the legends", icon: "book", width: 300, height: 200, imageName: "home-img-3", destination: ARSpotlightView())
                                 
-                                homeCards(title: "Upcoming Events", subtitle: "Track meteor showers", icon: "calendar.badge.star", width: 300, height: 200, imageName: "home-img-4")
+                                HomeCard(title: "Upcoming Events", subtitle: "Track meteor showers", icon: "calendar.badge.star", width: 300, height: 200, imageName: "home-img-4", destination: ARSpotlightView())
                             }
                             .padding(.horizontal, 20)
                         }

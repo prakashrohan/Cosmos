@@ -26,7 +26,7 @@ enum SideBarItem: String, CaseIterable {
     }
 }
 
-struct AestheticSidebar: View {
+struct Sidebar: View {
     @State private var selected: SideBarItem = .home
     @State private var isExpanded = true
     @Namespace private var highlight
@@ -94,10 +94,10 @@ struct AestheticSidebar: View {
     }
 }
 
-struct AestheticSidebar_Previews: PreviewProvider {
+struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
         HStack(spacing: 0) {
-            AestheticSidebar()
+            Sidebar()
             Color(.darkGray).opacity(0.2)  // placeholder content
         }
         .preferredColorScheme(.dark)

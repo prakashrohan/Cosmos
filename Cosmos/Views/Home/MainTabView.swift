@@ -9,19 +9,20 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @State private var selectedTab: TabItem = .swap  // ⬅️ default tab
+    @State private var selectedTab: TabItem = .swap
+    @EnvironmentObject var appState: AppState
 
     var body: some View {
         ZStack {
-            // Tab content
+            // Main Tab Content
             Group {
                 switch selectedTab {
                 case .home:
-                    Text("Swap Screen") // or SwapView()
+                    Text("Swap Screen")
                 case .markets:
                     Text("Markets View")
                 case .swap:
-                    ContentView()  // ⬅️ This is your homepage!
+                    ContentView()
                 case .wallet:
                     Text("Wallet View")
                 case .profile:
@@ -30,10 +31,20 @@ struct MainTabView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-            // Custom TabBar overlayed on bottom
-            VStack {
-                Spacer()
-                AnimatedNeonTabBar(selected: $selectedTab)
+            // Tab Bar with SMOOTH, SLOW POP-UP
+            if !appState.isTabBarHidden {
+                VStack {
+                    Spacer()
+                    AnimatedNeonTabBar(selected: $selectedTab)
+                        .transition(
+                            .asymmetric(
+                                insertion: .move(edge: .bottom).combined(with: .opacity),
+                                removal: .move(edge: .bottom).combined(with: .opacity)
+                            )
+                        )
+                        .padding(.bottom, 10)
+                }
+                .animation(.easeInOut(duration: 0.55), value: appState.isTabBarHidden)
             }
         }
         .ignoresSafeArea(edges: .bottom)

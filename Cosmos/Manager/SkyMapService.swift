@@ -2,8 +2,8 @@ import Foundation
 
 class SkyMapService {
     private let baseURL = "https://api.astronomyapi.com/api/v2/studio/star-chart"
-    private let applicationID = Environment.skymapApplicationID
-    private let applicationSecret = Environment.skymapApplicationSecreet
+    private let applicationID = skyAsset.skymapApplicationID
+    private let applicationSecret = skyAsset.skymapApplicationSecreet
 
    
     func generateConstellationStarChart(

@@ -79,9 +79,3 @@ struct AnimatedNeonTabBar: View {
 
 
 
-//struct NeonTabBar_Previews: PreviewProvider {
-//  static var previews: some View {
-//    AnimatedNeonTabBar
-//      .preferredColorScheme(.dark)
-//  }
-//}
