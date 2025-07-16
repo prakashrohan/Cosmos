@@ -70,3 +70,6 @@ GoogleService-Info.plist
 
 # XCFrameworks
 *.xcframework
+
+env.swift
+
