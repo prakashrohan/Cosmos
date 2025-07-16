@@ -1,3 +1,13 @@
+//
+//  ExpandedAPODCard.swift
+//  Cosmos
+//
+//  Created by Rohan Prakash on 11/07/25.
+//
+
+import SwiftUI
+import Foundation
+
 struct ExpandedAPODCard: View {
     let apod: APOD
     let animation: Namespace.ID
@@ -21,10 +31,10 @@ struct ExpandedAPODCard: View {
                     }
                     Spacer()
                 }
-                .padding(.top, 60)
+                .padding(.top, 20)
                 .padding(.horizontal)
 
-                Spacer(minLength: 10)
+               // Spacer(minLength: 10)
 
                 if let url = URL(string: apod.url ?? "") {
                     AsyncImage(url: url) { image in
@@ -33,6 +43,7 @@ struct ExpandedAPODCard: View {
                             .matchedGeometryEffect(id: apod.id, in: animation)
                     } placeholder: {
                         ProgressView()
+                            
                     }
                     .cornerRadius(20)
                     .padding(.horizontal)
@@ -49,7 +60,7 @@ struct ExpandedAPODCard: View {
                             .foregroundColor(.white.opacity(0.8))
                             .padding()
                     }
-                    .frame(maxHeight: 180)
+                    .frame(maxHeight: 260)
                 }
 
                 Spacer()
@@ -66,8 +77,9 @@ struct ExpandedAPODCard: View {
                         .padding(.horizontal, 40)
                 }
 
-                Spacer(minLength: 30)
+//                Spacer(minLength: 30)
             }
         }
     }
 }
+

@@ -1,3 +1,12 @@
+//
+//  NeonCard.swift
+//  Cosmos
+//
+//  Created by Rohan Prakash on 11/07/25.
+//
+
+import Foundation
+import SwiftUI
 struct NeonCard<Content: View>: View {
     let content: () -> Content
 

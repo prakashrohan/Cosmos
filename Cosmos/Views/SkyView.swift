@@ -75,7 +75,7 @@ struct SkyView: View {
         }
     }
 
-    /// Fetch constellation data using the SkyMapService
+    // Fetch constellation data using the SkyMapService
     func fetchConstellation(location: CLLocation, attitude: CMAttitude) {
         let (azimuth, altitude) = calculateAzimuthAndAltitude(attitude: attitude)
         let date = getCurrentDate()
@@ -101,14 +101,14 @@ struct SkyView: View {
         }
     }
 
-    /// Calculate azimuth and altitude from device attitude
+    
     func calculateAzimuthAndAltitude(attitude: CMAttitude) -> (azimuth: Double, altitude: Double) {
         let azimuth = attitude.yaw * (180 / .pi) // Convert radians to degrees
         let altitude = attitude.pitch * (180 / .pi)
         return (azimuth, altitude)
     }
 
-    /// Dynamically calculate the constellation ID based on azimuth and altitude
+  
     func calculateConstellationID(azimuth: Double, altitude: Double) -> String {
         // Replace this logic with actual dynamic constellation mapping logic
         if azimuth > 0 && azimuth < 180 {
@@ -120,7 +120,7 @@ struct SkyView: View {
         }
     }
 
-    /// Convert constellation ID to a user-friendly name
+   
     func constellationIDToName(constellationID: String) -> String {
         switch constellationID {
         case "ori":
@@ -134,7 +134,7 @@ struct SkyView: View {
         }
     }
 
-    /// Get the current date in the required format (e.g., "YYYY-MM-DD")
+   
     func getCurrentDate() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"

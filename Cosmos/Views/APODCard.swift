@@ -5,6 +5,7 @@
 //  Created by Rohan Prakash on 11/07/25.
 //
 
+import SwiftUI
 
 struct APODCard: View {
     let apod: APOD

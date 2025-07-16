@@ -18,8 +18,6 @@
 		87CB61012D6127C2004C450A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87CB61002D6127C2004C450A /* GoogleService-Info.plist */; };
 		87CB61052D61288F004C450A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 87CB61042D61288F004C450A /* FirebaseAuth */; };
 		87CB610D2D6147E5004C450A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 87CB610C2D6147DD004C450A /* .gitignore */; };
-		87CB610F2D614856004C450A /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CB610E2D614856004C450A /* SplashScreenView.swift */; };
-		87CB61112D614BFA004C450A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CB61102D614BFA004C450A /* ProfileView.swift */; };
 		87CB61142D61E928004C450A /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 87CB61132D61E928004C450A /* GoogleSignIn */; };
 		87CB61162D61E928004C450A /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 87CB61152D61E928004C450A /* GoogleSignInSwift */; };
 /* End PBXBuildFile section */
@@ -29,8 +27,6 @@
 		875B468A2D46A0C7008E073A /* RealityKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealityKit.framework; path = System/Library/Frameworks/RealityKit.framework; sourceTree = SDKROOT; };
 		87CB61002D6127C2004C450A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		87CB610C2D6147DD004C450A /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		87CB610E2D614856004C450A /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
-		87CB61102D614BFA004C450A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		97043AF12D0F3CFC0093FFD0 /* Cosmos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cosmos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -89,13 +85,11 @@
 		97043AE82D0F3CFC0093FFD0 = {
 			isa = PBXGroup;
 			children = (
-				87CB61102D614BFA004C450A /* ProfileView.swift */,
-				87CB610E2D614856004C450A /* SplashScreenView.swift */,
-				87CB610C2D6147DD004C450A /* .gitignore */,
 				97043AF32D0F3CFC0093FFD0 /* Cosmos */,
 				875B46872D46A0B5008E073A /* Frameworks */,
 				97043AF22D0F3CFC0093FFD0 /* Products */,
 				87CB61002D6127C2004C450A /* GoogleService-Info.plist */,
+				87CB610C2D6147DD004C450A /* .gitignore */,
 			);
 			sourceTree = "<group>";
 		};
@@ -197,8 +191,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				87CB610F2D614856004C450A /* SplashScreenView.swift in Sources */,
-				87CB61112D614BFA004C450A /* ProfileView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +331,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "To enable augmented reality features";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show constellations in the sky.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to your photo library to save images.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -373,6 +366,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "To enable augmented reality features";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show constellations in the sky.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to your photo library to save images.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
