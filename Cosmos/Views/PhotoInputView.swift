@@ -10,64 +10,73 @@ struct PhotoInputView: View {
     private let predictor = CoreMLPrediction()
 
     var body: some View {
-        ZStack {
-            // 🔵 Gradient Background
-            LinearGradient(gradient: Gradient(colors: [Color.black, Color.blue.opacity(0.3)]),
-                           startPoint: .topLeading,
-                           endPoint: .bottomTrailing)
-                .edgesIgnoringSafeArea(.all)
-
-            VStack(spacing: 20) {
-                // 📸 Image Selection Title
-                Text("Select or Capture a Photo")
-                    .font(.title2.bold())
-                    .foregroundColor(.white)
-                    .shadow(color: .blue.opacity(0.6), radius: 10, x: 0, y: 4)
-
-                // 📷 Image Preview Section
-                ImageSelectionCard(image: selectedImage, isProcessing: isProcessing)
-
-                // 📊 Predictions Section
-                if !predictions.isEmpty {
-                    PredictionDisplayView(
-                        predictions: predictions,
-                        onARButtonTap: { constellationName in
-                            print("View \(constellationName) in AR")
-                            showARView(for: constellationName)
+        NavigationStack{
+            
+            
+            ZStack {
+                
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.black, Color(red: 0.05, green: 0.05, blue: 0.1)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
+                
+                VStack(spacing: 20) {
+                    Text("Constellation Scanner")
+                        .font(.largeTitle.bold())
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [Color.blue, Color.purple],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .shadow(color: .blue.opacity(0.6), radius: 10)
+                    
+                    ImageSelectionCard(image: selectedImage, isProcessing: isProcessing)
+                    
+                    if !predictions.isEmpty {
+                        PredictionDisplayView(
+                            predictions: predictions,
+                            onARButtonTap: { constellationName in
+                                showARView(for: constellationName)
+                            }
+                        )
+                        .padding(.horizontal)
+                    }
+                    
+                    HStack(spacing: 16) {
+                        CustomButton(title: "📷 Take Photo", color: .blue) {
+                            sourceType = .camera
+                            showImagePicker = true
                         }
-                    )
-                    .padding()
-                }
-
-                // 📤 Image Capture & Upload Buttons
-                HStack(spacing: 20) {
-                    CustomButton(title: "📷 Take Photo", color: .blue) {
-                        sourceType = .camera
-                        showImagePicker = true
+                        
+                        CustomButton(title: "📂 Upload Photo", color: .green) {
+                            sourceType = .photoLibrary
+                            showImagePicker = true
+                        }
                     }
-
-                    CustomButton(title: "📂 Upload Photo", color: .green) {
-                        sourceType = .photoLibrary
-                        showImagePicker = true
-                    }
+                    
+                    Spacer()
                 }
-                .frame(maxWidth: .infinity)
-
-                Spacer()
+                .padding()
             }
-            .padding()
-        }
-        .sheet(isPresented: $showImagePicker) {
-            ImagePickerView(image: $selectedImage, sourceType: sourceType)
-        }
-        .onChange(of: selectedImage) { newImage in
-            if let image = newImage {
-                isProcessing = true
-                predictor.predict(from: image) { results in
-                    predictions = results.map { Prediction(label: $0.identifier, confidence: Double($0.confidence)) }
-                    isProcessing = false
+            .sheet(isPresented: $showImagePicker) {
+                ImagePickerView(image: $selectedImage, sourceType: sourceType)
+            }
+            .onChange(of: selectedImage) { newImage in
+                if let image = newImage {
+                    isProcessing = true
+                    predictor.predict(from: image) { results in
+                        predictions = results.map {
+                            Prediction(label: $0.identifier, confidence: Double($0.confidence))
+                        }
+                        isProcessing = false
+                    }
                 }
             }
+            //.navigationBarBackButtonHidden(true)
         }
     }
 
@@ -76,10 +85,11 @@ struct PhotoInputView: View {
         let controller = UIHostingController(rootView: arView)
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first {
-            window.rootViewController?.present(controller, animated: true, completion: nil)
+            window.rootViewController?.present(controller, animated: true)
         }
     }
 }
+
 
 // MARK: - 📷 Image Selection Card
 struct ImageSelectionCard: View {
@@ -144,7 +154,7 @@ struct CustomButton: View {
     }
 }
 
-// MARK: - 🌌 AR View Placeholder
+// MARK: - AR View Placeholder
 struct ARViewPlaceholder: View {
     let constellationName: String
 
@@ -168,8 +178,6 @@ struct ARViewPlaceholder: View {
         .shadow(radius: 4)
     }
 }
-
-// MARK: - 🎭 Blur Effect for Glassmorphism
 
 
 // MARK: - 📸 Preview

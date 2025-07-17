@@ -24,8 +24,10 @@ struct YourApp: App {
   var body: some Scene {
     WindowGroup {
       NavigationView {
-          SplashScreenView()
+          //SplashScreenView()
+          PhotoInputView()
               .environmentObject(appState)
+          //TestView()
           //ARSpotlightView()
       }
     }

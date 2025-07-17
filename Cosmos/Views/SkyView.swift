@@ -10,77 +10,129 @@ import CoreLocation
 import CoreMotion
 
 struct SkyView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject private var locationManager = LocationManager()
     @StateObject private var motionManager = MotionManager()
-    @State private var constellationName = "Unknown"
+    @State private var constellationName = "..."
     @State private var starChartUrl: String? = nil
+    @State private var lastUpdateAzimuth: Double = 0
     @State private var isLoading = true
-
-    private let skyMapService = SkyMapService() // Instance of the service
+    @EnvironmentObject var appState: AppState
+    private let skyMapService = SkyMapService()
+    private let updateThreshold: Double = 10 // degrees
 
     var body: some View {
-        VStack {
-            Text("Point your phone at the sky!")
-                .font(.title)
-                .padding()
+        ZStack(alignment: .topLeading) {
+            LinearGradient(
+                gradient: Gradient(colors: [Color.black, Color(red: 0.05, green: 0.05, blue: 0.1)]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
 
-            Text("Constellation: \(constellationName)")
-                .font(.headline)
-                .foregroundColor(.white)
-                .padding()
-                .background(Color.blue.opacity(0.7))
-                .cornerRadius(10)
-                .padding()
+            VStack(spacing: 0) {
+                // 🌌 Top Image Banner
+                Image("home-img-2")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(height: 250)
+                    .clipped()
+                    .ignoresSafeArea(edges: .top)
+                    .padding(.bottom,-50)
+                
+                    .overlay(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.black.opacity(0.7), .clear]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
 
-            if let starChartUrl = starChartUrl {
-                AsyncImage(url: URL(string: starChartUrl)) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView("Loading star chart...")
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxWidth: .infinity, maxHeight: 300)
-                            .cornerRadius(10)
-                            .padding()
-                    case .failure:
-                        Text("Failed to load star chart.")
-                            .foregroundColor(.red)
-                    @unknown default:
-                        Text("Unknown error occurred.")
+                // 🔭 Title
+                Text("Sky Scanner")
+                    .font(.largeTitle.bold())
+                    .foregroundStyle(LinearGradient(colors: [Color.purple, Color.blue], startPoint: .leading, endPoint: .trailing))
+                    .shadow(color: .blue.opacity(0.8), radius: 10)
+                    .padding(.top, -200)
+                    .padding(.bottom, 20)
+                    
+                // ✨ Constellation Display
+                Text("🔭 Constellation: \(constellationName)")
+                    .font(.title2)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(Color.white.opacity(0.1))
+                    .clipShape(Capsule())
+                    Spacer(minLength: 16)
+
+                // 🗺 Star Chart Image
+                if let url = starChartUrl {
+                    AsyncImage(url: URL(string: url)) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView("Loading star chart...")
+                                .padding()
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .cornerRadius(16)
+                                .shadow(radius: 10)
+                                .padding(.horizontal)
+                        case .failure:
+                            Text("Failed to load star chart")
+                                .foregroundColor(.red)
+                        @unknown default:
+                            EmptyView()
+                        }
                     }
+                } else if isLoading {
+                    ProgressView("Scanning sky...")
+                        .padding()
                 }
-            } else if isLoading {
-                ProgressView("Fetching constellation and star chart...")
-                    .padding()
-            } else {
-                Text("No star chart available.")
-                    .foregroundColor(.gray)
-                    .padding()
+
+                Spacer()
             }
 
-            Spacer()
+            // 🔙 Back Button
+            Button(action: {
+                dismiss()
+            }) {
+                Image(systemName: "chevron.left")
+                    .foregroundColor(.white)
+                    .font(.system(size: 20, weight: .medium))
+                    .padding()
+                    .background(Color.black.opacity(0.5))
+                    .clipShape(Circle())
+                    .shadow(radius: 5)
+            }
+            .padding(.leading, 16)
+            .padding(.top, -8)
         }
         .onAppear {
-            motionManager.startUpdates()
+            motionManager.startUpdates();appState.isTabBarHidden = true
         }
         .onDisappear {
-            motionManager.stopUpdates()
+            motionManager.stopUpdates();appState.isTabBarHidden = false
         }
         .onChange(of: motionManager.attitude) { attitude in
-            if let location = locationManager.currentLocation, let attitude = attitude {
-                fetchConstellation(location: location, attitude: attitude)
+            guard let attitude = attitude, let location = locationManager.currentLocation else { return }
+
+            let (azimuth, altitude) = calculateAzimuthAndAltitude(attitude: attitude)
+
+            if abs(azimuth - lastUpdateAzimuth) > updateThreshold {
+                lastUpdateAzimuth = azimuth
+                fetchStarChart(for: location, azimuth: azimuth, altitude: altitude)
             }
-        }
+               // .onAppear { appState.isTabBarHidden = true }
+               // .onDisappear { appState.isTabBarHidden = false }
+        } .navigationBarBackButtonHidden(true)
     }
 
-    // Fetch constellation data using the SkyMapService
-    func fetchConstellation(location: CLLocation, attitude: CMAttitude) {
-        let (azimuth, altitude) = calculateAzimuthAndAltitude(attitude: attitude)
+    // MARK: - Logic
+    func fetchStarChart(for location: CLLocation, azimuth: Double, altitude: Double) {
         let date = getCurrentDate()
-
-        // Use dynamic constellation calculation or an external API mapping
         let constellationID = calculateConstellationID(azimuth: azimuth, altitude: altitude)
 
         skyMapService.generateConstellationStarChart(
@@ -90,58 +142,47 @@ struct SkyView: View {
             constellationID: constellationID
         ) { imageUrl in
             DispatchQueue.main.async {
-                if let imageUrl = imageUrl {
-                    self.starChartUrl = imageUrl
-                } else {
-                    self.starChartUrl = nil
-                }
+                self.starChartUrl = imageUrl
                 self.constellationName = constellationIDToName(constellationID: constellationID)
                 self.isLoading = false
             }
         }
     }
 
-    
     func calculateAzimuthAndAltitude(attitude: CMAttitude) -> (azimuth: Double, altitude: Double) {
-        let azimuth = attitude.yaw * (180 / .pi) // Convert radians to degrees
+        let azimuth = attitude.yaw * (180 / .pi)
         let altitude = attitude.pitch * (180 / .pi)
         return (azimuth, altitude)
     }
 
-  
     func calculateConstellationID(azimuth: Double, altitude: Double) -> String {
-        // Replace this logic with actual dynamic constellation mapping logic
-        if azimuth > 0 && azimuth < 180 {
-            return "ori" // Orion
-        } else if azimuth >= 180 && azimuth < 360 {
-            return "uma" // Ursa Major
+        if altitude > 45 {
+            return "ori"
+        } else if azimuth > 90 && azimuth < 270 {
+            return "uma"
         } else {
-            return "cma" // Canis Major
+            return "cma"
         }
     }
 
-   
     func constellationIDToName(constellationID: String) -> String {
         switch constellationID {
-        case "ori":
-            return "Orion"
-        case "uma":
-            return "Ursa Major"
-        case "cma":
-            return "Canis Major"
-        default:
-            return "Unknown"
+        case "ori": return "Orion"
+        case "uma": return "Ursa Major"
+        case "cma": return "Canis Major"
+        default: return "Unknown"
         }
     }
 
-   
     func getCurrentDate() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.string(from: Date())
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: Date())
     }
 }
 
+
 #Preview {
     SkyView()
+        .environmentObject(AppState())
 }

@@ -78,7 +78,7 @@ struct HomeView: View {
                         SectionHeader(title: "Discover More")
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 30) {
-                                HomeCard(title: "Night Sky Tips", subtitle: "Improve your observation", icon: "lightbulb", width: 300, height: 200, imageName: "home-img-2", destination: ARSpotlightView())
+                                HomeCard(title: "Night Sky Tips", subtitle: "Improve your observation", icon: "lightbulb", width: 300, height: 200, imageName: "home-img-2", destination: SkyView())
                                 
                                 HomeCard(title: "Mythology & Stars", subtitle: "Learn the legends", icon: "book", width: 300, height: 200, imageName: "home-img-3", destination: ARSpotlightView())
                                 

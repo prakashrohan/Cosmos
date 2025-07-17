@@ -9,7 +9,7 @@ import SwiftUI
 import ARKit
 import SceneKit
 
-// MARK: - AR Image Viewing in AR
+// MARK: - AR Image View
 struct ARImageView: UIViewRepresentable {
     let imageURL: String
 
@@ -18,14 +18,11 @@ struct ARImageView: UIViewRepresentable {
         arView.scene = SCNScene()
         arView.automaticallyUpdatesLighting = true
 
-        // Start AR session
         let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = .horizontal
+        configuration.planeDetection = [.horizontal]
         arView.session.run(configuration)
 
-        // Load the selected image and add it to the scene
         addImageToScene(arView: arView, imageURL: imageURL)
-
         return arView
     }
 
@@ -35,85 +32,114 @@ struct ARImageView: UIViewRepresentable {
         guard let url = URL(string: imageURL),
               let imageData = try? Data(contentsOf: url),
               let image = UIImage(data: imageData) else {
-            print("Failed to load image.")
+            print("❌ Failed to load image.")
             return
         }
 
-        // Create a plane geometry to display the image
-        let plane = SCNPlane(width: 1.5, height: 1.0) // Adjust dimensions as needed
+        let plane = SCNPlane(width: 1.2, height: 0.8)
         plane.firstMaterial?.diffuse.contents = image
         plane.firstMaterial?.isDoubleSided = true
 
-        // Create a node with the plane
         let node = SCNNode(geometry: plane)
-        node.position = SCNVector3(0, 0, -2) // Place it 2 meters in front of the camera
+        node.position = SCNVector3(0, 0, -1.5)
+        let rotate = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat.pi, z: 0, duration: 12))
+        node.runAction(rotate)
 
-        // Add a slight rotation animation for interactivity
-        let rotateAction = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat.pi, z: 0, duration: 10))
-        node.runAction(rotateAction)
-
-        // Add the node to the AR scene
         arView.scene.rootNode.addChildNode(node)
     }
 }
 
-
-
-
-
-// MARK: - TestView with Image Display & AR Viewing
+// MARK: - Main Test View
 struct TestView: View {
     @StateObject var networkManager = NetworkManager()
     @State private var selectedImageURL: String?
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        NavigationView {
+        ZStack {
+            LinearGradient(
+                gradient: Gradient(colors: [Color.black, Color(red: 0.05, green: 0.05, blue: 0.1)]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+
             VStack {
-                // Display AR view if an image is selected
+                // Back button
+                HStack {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .foregroundColor(.white)
+                            .font(.system(size: 20, weight: .medium))
+                            .padding()
+                            .background(Color.black.opacity(0.5))
+                            .clipShape(Circle())
+                            .shadow(radius: 5)
+                    }
+
+                    Text("Mars Rover Explorer")
+                        .font(.title2.bold())
+                        .foregroundStyle(LinearGradient(colors: [.blue, .purple], startPoint: .leading, endPoint: .trailing))
+
+                    Spacer()
+                }
+                .padding(.horizontal)
+                .padding(.top)
+
                 if let selectedImageURL = selectedImageURL {
                     ARImageView(imageURL: selectedImageURL)
-                        .edgesIgnoringSafeArea(.all) // Make the AR view take the entire screen
+                        .edgesIgnoringSafeArea(.all)
                 } else {
-                    List(networkManager.photos) { photo in
-                        VStack(alignment: .leading) {
-                            // MARK: - Tap to Open Image in AR
-                            Button(action: {
-                                self.selectedImageURL = photo.img_src.replacingOccurrences(of: "http:", with: "https:") 
-                                    
-                                
-                            }) {
-                                AsyncImage(url: URL(string: photo.img_src.replacingOccurrences(of: "http:", with: "https:"))) { image in
-                                    image.resizable()
-                                        .scaledToFit()
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                                .frame(height: 200)
-                            }
+                    ScrollView {
+                        LazyVStack(spacing: 20) {
+                            ForEach(networkManager.photos) { photo in
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Button(action: {
+                                        selectedImageURL = photo.img_src.replacingOccurrences(of: "http:", with: "https:")
+                                    }) {
+                                        AsyncImage(url: URL(string: photo.img_src.replacingOccurrences(of: "http:", with: "https:"))) { image in
+                                            image
+                                                .resizable()
+                                                .scaledToFit()
+                                                .cornerRadius(12)
+                                                .shadow(radius: 5)
+                                        } placeholder: {
+                                            ProgressView()
+                                        }
+                                    }
 
-                            Text("Camera: \(photo.camera.full_name)")
-                                .font(.headline)
-                            Text("Rover: \(photo.rover.name) (\(photo.rover.status.capitalized))")
-                                .font(.subheadline)
-                            Text("Taken on: \(photo.earth_date)")
-                                .font(.footnote)
-                                .foregroundColor(.gray)
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text("📸 Camera: \(photo.camera.full_name)")
+                                            .font(.headline)
+                                            .foregroundColor(.white)
+                                        Text("🚀 Rover: \(photo.rover.name) (\(photo.rover.status.capitalized))")
+                                            .font(.subheadline)
+                                            .foregroundColor(.white.opacity(0.8))
+                                        Text("📅 Taken on: \(photo.earth_date)")
+                                            .font(.footnote)
+                                            .foregroundColor(.gray)
+                                    }
+                                }
+                                .padding()
+                                .background(Color.white.opacity(0.05))
+                                .cornerRadius(20)
+                                .padding(.horizontal)
+                            }
                         }
-                        .padding(.vertical, 8)
-                    }
-                    .navigationTitle("Mars Rover Photos")
-                    .onAppear {
-                        networkManager.fetchPhotos()
                     }
                 }
             }
         }
+        .onAppear {
+            networkManager.fetchPhotos()
+        }
     }
 }
 
-// MARK: - Preview for SwiftUI
-struct TestView_Previews: PreviewProvider {
-    static var previews: some View {
-        TestView()
-    }
+// MARK: - Preview
+#Preview {
+    TestView()
 }
+

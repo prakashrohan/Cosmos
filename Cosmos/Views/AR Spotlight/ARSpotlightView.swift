@@ -26,6 +26,14 @@ struct ARSpotlightView: View {
                         .clipped()
                         .ignoresSafeArea(edges: .top)
                         .padding(.bottom,-50)
+                        .overlay(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.black.opacity(0.7), .clear]),
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+
 
                     // Category Tabs
                     
@@ -88,7 +96,7 @@ struct ARSpotlightView: View {
                 .padding(.top, -20) // Enough space for notch/safe area
             }
         }.onAppear { appState.isTabBarHidden = true }
-            .onDisappear { appState.isTabBarHidden = false }
+        .onDisappear { appState.isTabBarHidden = false }
         .navigationBarBackButtonHidden(true)
         }
        
