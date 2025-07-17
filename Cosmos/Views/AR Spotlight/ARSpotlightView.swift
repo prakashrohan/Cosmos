@@ -138,49 +138,49 @@ struct CategoryButton: View {
 struct ARModel: Identifiable {
     let id = UUID()
     let name: String
-    
+    let imageName: String
     let modelFile: String
 }
 
 func items(for category: ARCategory) -> [ARModel] {
     switch category {
     case .planets:
-        return [ARModel(name: "Earth",  modelFile: "earth"),
-                ARModel(name: "Mars",  modelFile: "mars")]
+        return [
+            ARModel(name: "Earth", imageName: "earth", modelFile: "Earth_1_12756"),
+            ARModel(name: "Mars", imageName: "mars", modelFile: "24881_Mars_1_6792")
+        ]
     case .moons:
-        return [ARModel(name: "Luna",  modelFile: "moon")]
+        return [
+            ARModel(name: "Luna", imageName: "moon", modelFile: "moon")
+        ]
     case .iss:
-        return [ARModel(name: "ISS",  modelFile: "ISS_stationary")]
-        
+        return [
+            ARModel(name: "ISS", imageName: "ISS", modelFile: "ISS_stationary")
+        ]
     case .satellites:
-        return [ARModel(name: "Hubble",  modelFile: "hubble"),
-                ARModel(name: "GPS III",  modelFile: "gps")]
+        return [
+            ARModel(name: "Hubble", imageName: "hubble", modelFile: "hubble"),
+            ARModel(name: "GPS III", imageName: "gps", modelFile: "gps")
+        ]
     }
 }
 
+
 struct ModelCard: View {
     let model: ARModel
-    //let modelImage: Image
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Rectangle()
-                .fill(Color.gray.opacity(0.3))
-                .frame(height: 120)
-                .overlay(
-                    Image("ISS")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 40)
-                        .foregroundColor(.white)
-                )
+            Image(model.imageName)
+                .resizable()
+                .scaledToFill()
+                .frame(width:150,height: 120)
+                .clipped()
                 .cornerRadius(12)
 
             Text(model.name)
                 .font(.headline)
                 .foregroundColor(.white)
-
-     
 
             HStack {
                 Spacer()
@@ -189,19 +189,21 @@ struct ModelCard: View {
                         .padding()
                         .background(Circle().fill(Color.white))
                 }
-
             }
         }
+        
         .padding()
         .background(Color.white.opacity(0.05))
         .cornerRadius(20)
     }
 }
 
+
 // MARK: - Preview
 struct ARSpotlightView_Previews: PreviewProvider {
     static var previews: some View {
         ARSpotlightView()
+            .environmentObject(AppState())
             .preferredColorScheme(.dark)
     }
 }

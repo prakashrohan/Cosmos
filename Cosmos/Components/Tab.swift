@@ -1,7 +1,7 @@
 import SwiftUI
 
 enum TabItem: String, CaseIterable {
-    case home    = "ome"
+    case home    = "Solar"
     case markets = "Markets"
     case swap    = "Home"
     case wallet  = "Wallet"
@@ -9,7 +9,7 @@ enum TabItem: String, CaseIterable {
     
     var icon: String {
         switch self {
-        case .home:    return "arrow.left.arrow.right"
+        case .home:    return "globe.americas"
         case .markets: return "clock"
         case .swap:    return "house"
         case .wallet:  return "wallet.pass"

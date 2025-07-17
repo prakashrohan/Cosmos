@@ -57,46 +57,9 @@ struct ARImageView: UIViewRepresentable {
     }
 }
 
-// MARK: - Model for Mars Rover API Response
-struct MarsPhoto: Identifiable, Codable {
-    let id: Int
-    let img_src: String
-    let earth_date: String
-    let camera: Camera
-    let rover: Rover
 
-    struct Camera: Codable {
-        let full_name: String
-    }
 
-    struct Rover: Codable {
-        let name: String
-        let status: String
-    }
-}
 
-// MARK: - NetworkManager to Fetch Data
-class NetworkManager: ObservableObject {
-    @Published var photos: [MarsPhoto] = []
-
-    func fetchPhotos() {
-        let urlString = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2015-6-3&api_key=DEMO_KEY"
-        guard let url = URL(string: urlString) else { return }
-
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            if let data = data {
-                DispatchQueue.main.async {
-                    do {
-                        let response = try JSONDecoder().decode([String: [MarsPhoto]].self, from: data)
-                        self.photos = response["photos"] ?? []
-                    } catch {
-                        print("Decoding error:", error)
-                    }
-                }
-            }
-        }.resume()
-    }
-}
 
 // MARK: - TestView with Image Display & AR Viewing
 struct TestView: View {

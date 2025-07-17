@@ -52,7 +52,7 @@ struct ConstellationStarChartView: View {
                 latitude: 33.775867,
                 longitude: -84.39733,
                 date: "2025-01-29",
-                constellationID: ""
+                constellationID: "ori"
             ) { imageUrl in
                 DispatchQueue.main.async {
                     self.starChartUrl = imageUrl

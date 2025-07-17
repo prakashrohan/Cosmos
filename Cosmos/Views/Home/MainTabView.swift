@@ -18,7 +18,7 @@ struct MainTabView: View {
             Group {
                 switch selectedTab {
                 case .home:
-                    Text("Swap Screen")
+                    NASA3DModelView()
                 case .markets:
                     Text("Markets View")
                 case .swap:
