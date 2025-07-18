@@ -57,7 +57,8 @@ struct ProfileView: View {
                         .shadow(radius: 5)
                 }
                 .padding(.horizontal, 30)
-                .padding(.bottom, 50)
+                .padding(.bottom, 150)
+                
             }
         }
         .fullScreenCover(isPresented: $isLoggedOut) {

@@ -26,7 +26,7 @@ struct MainTabView: View {
                 case .wallet:
                     Text("Wallet View")
                 case .profile:
-                    Text("Profile View")
+                    ProfileView()
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

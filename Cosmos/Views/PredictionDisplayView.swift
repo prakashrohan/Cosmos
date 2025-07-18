@@ -47,3 +47,4 @@ struct Prediction {
     let confidence: Double // Value between 0.0 and 1.0
 }
 
+

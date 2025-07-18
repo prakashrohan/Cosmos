@@ -64,7 +64,7 @@ struct HomeView: View {
                             ],
                             spacing: 20
                         ) {
-                            HomeCard(title: "Date Range Gallery", subtitle: "Browse by date", icon: "calendar", width: 180, height: 220, imageName: nil, destination: ARSpotlightView())
+                            HomeCard(title: "Date Range Gallery", subtitle: "Browse by date", icon: "calendar", width: 180, height: 220, imageName: nil, destination: APODRangeView())
                             
                             HomeCard(title: "Constellation Predictor", subtitle: "AI reveals star patterns", icon: "cpu", width: 180, height: 220, imageName: nil, destination: ARSpotlightView())
                             

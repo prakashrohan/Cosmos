@@ -6,6 +6,7 @@
 //
 
 
+
 import SwiftUI
 import Combine
 
@@ -120,7 +121,7 @@ struct APODRangeView: View {
                 .zIndex(1)
             }
         }
-        .navigationBarHidden(true)
+        
     }
 
     // MARK: - Fetch
@@ -150,5 +151,6 @@ struct APODRangeView: View {
 struct APODRangeView_Previews: PreviewProvider {
     static var previews: some View {
         APODRangeView()
+            .preferredColorScheme(.dark)
     }
 }
