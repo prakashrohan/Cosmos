@@ -4,7 +4,7 @@ enum TabItem: String, CaseIterable {
     case home    = "Solar"
     case markets = "Markets"
     case swap    = "Home"
-    case wallet  = "Wallet"
+    case wallet  = "News"
     case profile = "Profile"
     
     var icon: String {
@@ -12,7 +12,7 @@ enum TabItem: String, CaseIterable {
         case .home:    return "globe.americas"
         case .markets: return "clock"
         case .swap:    return "house"
-        case .wallet:  return "wallet.pass"
+        case .wallet:  return "newspaper"
         case .profile: return "person"
         }
     }

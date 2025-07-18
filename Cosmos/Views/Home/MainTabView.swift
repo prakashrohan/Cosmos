@@ -24,7 +24,7 @@ struct MainTabView: View {
                 case .swap:
                     ContentView()
                 case .wallet:
-                    Text("Wallet View")
+                    SpaceNewsView()
                 case .profile:
                     ProfileView()
                 }
