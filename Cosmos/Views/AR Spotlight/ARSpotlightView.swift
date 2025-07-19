@@ -159,7 +159,9 @@ func items(for category: ARCategory) -> [ARModel] {
         ]
     case .moons:
         return [
-            ARModel(name: "Luna", imageName: "moon", modelFile: "moon")
+            ARModel(name: "Luna", imageName: "luna", modelFile: "moon"),
+            ARModel(name: "Eris", imageName: "eris", modelFile: "Eris_1_2326")
+            
         ]
     case .iss:
         return [
@@ -167,8 +169,11 @@ func items(for category: ARCategory) -> [ARModel] {
         ]
     case .satellites:
         return [
-            ARModel(name: "Hubble", imageName: "hubble", modelFile: "hubble"),
-            ARModel(name: "GPS III", imageName: "gps", modelFile: "gps")
+            ARModel(name: "Hubble", imageName: "hubble", modelFile: "Hubble"),
+            ARModel(name: "Clipper", imageName: "clipper", modelFile: "gclipper_maspex"),
+            ARModel(name: "Ingenuity", imageName: "ingenuity", modelFile: "25043_Ingenuity_v3"),
+            ARModel(name: "Perseverance", imageName: "perseverance", modelFile: "25042_Perseverance"),
+            ARModel(name: "Curiosity", imageName: "curiosity", modelFile: "24584_Curiosity_static")
         ]
     }
 }

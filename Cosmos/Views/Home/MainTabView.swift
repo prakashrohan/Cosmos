@@ -20,7 +20,7 @@ struct MainTabView: View {
                 case .home:
                     NASA3DModelView()
                 case .markets:
-                    Text("Markets View")
+                    StarRegisterView()
                 case .swap:
                     ContentView()
                 case .wallet:

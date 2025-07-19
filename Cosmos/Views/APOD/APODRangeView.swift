@@ -19,6 +19,7 @@ struct APODRangeView: View {
     @State private var expandedAPOD: APOD? = nil
     @Namespace private var animation
     @State private var cancellable: AnyCancellable?
+    @EnvironmentObject var appState: AppState
 
     var body: some View {
         ZStack {
@@ -120,7 +121,8 @@ struct APODRangeView: View {
                 .transition(.opacity)
                 .zIndex(1)
             }
-        }
+        }.onAppear { appState.isTabBarHidden = true }
+            .onDisappear { appState.isTabBarHidden = false }
         
     }
 
@@ -152,5 +154,6 @@ struct APODRangeView_Previews: PreviewProvider {
     static var previews: some View {
         APODRangeView()
             .preferredColorScheme(.dark)
+            .environmentObject(AppState())
     }
 }

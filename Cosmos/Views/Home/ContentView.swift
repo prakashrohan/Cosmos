@@ -66,7 +66,7 @@ struct HomeView: View {
                         ) {
                             HomeCard(title: "Date Range Gallery", subtitle: "Browse by date", icon: "calendar", width: 180, height: 220, imageName: nil, destination: APODRangeView())
                             
-                            HomeCard(title: "Constellation Predictor", subtitle: "AI reveals star patterns", icon: "cpu", width: 180, height: 220, imageName: nil, destination: ARSpotlightView())
+                            HomeCard(title: "Constellation Predictor", subtitle: "AI reveals star patterns", icon: "cpu", width: 180, height: 220, imageName: nil, destination: PhotoInputView())
                             
                             HomeCard(title: "Deep Space Gallery", subtitle: "Explore nebulae & galaxies", icon: "globe", width: 180, height: 220, imageName: nil, destination: ARSpotlightView())
                             
@@ -80,9 +80,9 @@ struct HomeView: View {
                             HStack(spacing: 30) {
                                 HomeCard(title: "Night Sky Tips", subtitle: "Improve your observation", icon: "lightbulb", width: 300, height: 200, imageName: "home-img-2", destination: SkyView())
                                 
-                                HomeCard(title: "Mythology & Stars", subtitle: "Learn the legends", icon: "book", width: 300, height: 200, imageName: "home-img-3", destination: ARSpotlightView())
+                                HomeCard(title: "Mythology & Stars", subtitle: "Learn the legends", icon: "book", width: 300, height: 200, imageName: "home-img-3", destination: mythologyView())
                                 
-                                HomeCard(title: "Upcoming Events", subtitle: "Track meteor showers", icon: "calendar.badge.star", width: 300, height: 200, imageName: "home-img-4", destination: ARSpotlightView())
+                                HomeCard(title: "Upcoming Events", subtitle: "Track meteor showers", icon: "calendar.badge.star", width: 300, height: 200, imageName: "home-img-4", destination: meteorShower())
                             }
                             .padding(.horizontal, 20)
                         }
@@ -133,5 +133,6 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .preferredColorScheme(.dark)
+            .environmentObject(AppState())
     }
 }

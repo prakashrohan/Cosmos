@@ -51,7 +51,8 @@ struct SkyView: View {
                 // 🔭 Title
                 Text("Sky Scanner")
                     .font(.largeTitle.bold())
-                    .foregroundStyle(LinearGradient(colors: [Color.purple, Color.blue], startPoint: .leading, endPoint: .trailing))
+//                    .foregroundStyle(LinearGradient(colors: [Color.purple, Color.blue], startPoint: .leading, endPoint: .trailing))
+                    .foregroundStyle(.white)
                     .shadow(color: .blue.opacity(0.8), radius: 10)
                     .padding(.top, -200)
                     .padding(.bottom, 20)

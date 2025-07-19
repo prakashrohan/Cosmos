@@ -47,15 +47,23 @@ struct PhotoInputView: View {
                     }
                     
                     HStack(spacing: 16) {
-                        CustomButton(title: "📷 Take Photo", color: .blue) {
-                            sourceType = .camera
+                        CustomButton(title: " Take Photo", color: .blue) {
+                            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                                sourceType = .camera
+                            } else {
+                                // Fallback to library (or show alert)
+                                sourceType = .photoLibrary
+                            }
                             showImagePicker = true
                         }
+                        .frame(width: 180 , height: 50)
+
                         
-                        CustomButton(title: "📂 Upload Photo", color: .green) {
+                        CustomButton(title: "Upload Photo", color: .green) {
                             sourceType = .photoLibrary
                             showImagePicker = true
                         }
+                        .frame(width: 180 , height: 50)
                     }
                     
                     Spacer()
@@ -154,7 +162,6 @@ struct CustomButton: View {
     }
 }
 
-// MARK: - AR View Placeholder
 struct ARViewPlaceholder: View {
     let constellationName: String
 
