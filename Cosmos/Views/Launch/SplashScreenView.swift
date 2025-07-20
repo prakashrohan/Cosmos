@@ -129,6 +129,7 @@ struct SplashScreenView_Previews: PreviewProvider {
     static var previews: some View {
         SplashScreenView()
             .preferredColorScheme(.dark)
+            .environmentObject(AppState())
         
     }
 }

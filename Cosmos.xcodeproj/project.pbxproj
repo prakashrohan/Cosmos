@@ -10,6 +10,7 @@
 		875B46962D46A184008E073A /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875B46882D46A0B5008E073A /* ARKit.framework */; };
 		875B46992D46A185008E073A /* RealityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875B468A2D46A0C7008E073A /* RealityKit.framework */; };
 		879FCAB02D39735A00DDA4C0 /* SplineRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 879FCAAF2D39735A00DDA4C0 /* SplineRuntime */; };
+		87CAA60D2E2CE4770093DEE4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 87CAA60C2E2CE4770093DEE4 /* FirebaseFirestore */; };
 		87CB60F72D61251E004C450A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 87CB60F62D61251E004C450A /* FirebaseAnalytics */; };
 		87CB60F92D61251E004C450A /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 87CB60F82D61251E004C450A /* FirebaseAnalyticsOnDeviceConversion */; };
 		87CB60FB2D61251E004C450A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 87CB60FA2D61251E004C450A /* FirebaseAnalyticsWithoutAdIdSupport */; };
@@ -61,6 +62,7 @@
 				875B46962D46A184008E073A /* ARKit.framework in Frameworks */,
 				87CB60F92D61251E004C450A /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				87CB61052D61288F004C450A /* FirebaseAuth in Frameworks */,
+				87CAA60D2E2CE4770093DEE4 /* FirebaseFirestore in Frameworks */,
 				87CB61142D61E928004C450A /* GoogleSignIn in Frameworks */,
 				87CB60FD2D61251E004C450A /* FirebaseAppCheck in Frameworks */,
 				87CB60F72D61251E004C450A /* FirebaseAnalytics in Frameworks */,
@@ -130,6 +132,7 @@
 				87CB61042D61288F004C450A /* FirebaseAuth */,
 				87CB61132D61E928004C450A /* GoogleSignIn */,
 				87CB61152D61E928004C450A /* GoogleSignInSwift */,
+				87CAA60C2E2CE4770093DEE4 /* FirebaseFirestore */,
 			);
 			productName = Cosmos;
 			productReference = 97043AF12D0F3CFC0093FFD0 /* Cosmos.app */;
@@ -441,6 +444,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 879FCAAE2D39735A00DDA4C0 /* XCRemoteSwiftPackageReference "spline-ios" */;
 			productName = SplineRuntime;
+		};
+		87CAA60C2E2CE4770093DEE4 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 87CB60F52D61251E004C450A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 		87CB60F62D61251E004C450A /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;

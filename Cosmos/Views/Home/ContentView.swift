@@ -70,7 +70,7 @@ struct HomeView: View {
                             
                             HomeCard(title: "Deep Space Gallery", subtitle: "Explore nebulae & galaxies", icon: "globe", width: 180, height: 220, imageName: nil, destination: ARSpotlightView())
                             
-                            HomeCard(title: "Favorites", subtitle: "Your saved shots", icon: "star.fill", width: 180, height: 220, imageName: nil, destination: ARSpotlightView())
+                            HomeCard(title: "Favorites", subtitle: "Your saved shots", icon: "star.fill", width: 180, height: 220, imageName: nil, destination: FavoritesView())
                         }
                         .padding(.horizontal, 20)
 

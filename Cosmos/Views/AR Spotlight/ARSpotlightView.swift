@@ -1,6 +1,8 @@
 
 
 import SwiftUI
+import FirebaseFirestore
+
 
 struct ARSpotlightView: View {
     @Environment(\.dismiss) var dismiss
@@ -144,11 +146,13 @@ struct CategoryButton: View {
 
 // MARK: - Model Card
 struct ARModel: Identifiable {
-    let id = UUID()
+    var id: String { modelFile }  // Use modelFile as stable ID
     let name: String
     let imageName: String
     let modelFile: String
 }
+
+
 
 func items(for category: ARCategory) -> [ARModel] {
     switch category {
@@ -179,37 +183,8 @@ func items(for category: ARCategory) -> [ARModel] {
 }
 
 
-struct ModelCard: View {
-    let model: ARModel
 
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Image(model.imageName)
-                .resizable()
-                .scaledToFill()
-                .frame(width:150,height: 120)
-                .clipped()
-                .cornerRadius(12)
 
-            Text(model.name)
-                .font(.headline)
-                .foregroundColor(.white)
-
-            HStack {
-                Spacer()
-                NavigationLink(destination: ARModelView(modelName: model.modelFile)) {
-                    Image(systemName: "arkit")
-                        .padding()
-                        .background(Circle().fill(Color.white))
-                }
-            }
-        }
-        
-        .padding()
-        .background(Color.white.opacity(0.05))
-        .cornerRadius(20)
-    }
-}
 
 
 // MARK: - Preview

@@ -9,7 +9,7 @@ import UIKit
 import ImageIO
 
 extension CGImagePropertyOrientation {
-    /// Converts `UIImage.Orientation` → `CGImagePropertyOrientation`
+    
     init?(_ ui: UIImage.Orientation) {
         switch ui {
         case .up:           self = .up
