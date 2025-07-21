@@ -21,13 +21,22 @@ struct ModelCard: View {
 
             HStack {
                 Button(action: {
-                    toggleFavorite()
+                    withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+                        toggleFavorite()
+                    }
+
+                    let generator = UINotificationFeedbackGenerator()
+                    generator.prepare()
+                    generator.notificationOccurred(isFavorited ? .warning : .success)
                 }) {
                     Image(systemName: isFavorited ? "heart.fill" : "heart")
                         .foregroundColor(.red)
                         .padding(10)
                         .background(Circle().fill(Color.white.opacity(0.2)))
+                        .scaleEffect(isFavorited ? 1.2 : 1.0)
+                        .animation(.easeInOut(duration: 0.2), value: isFavorited)
                 }
+
 
                 Spacer()
 

@@ -61,16 +61,19 @@ struct ArticleCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             // Header image
-            AsyncImage(url: URL(string: article.image_url ?? "")) { phase in
-                if let img = phase.image {
-                    img.resizable().scaledToFill()
-                } else {
-                    Image("news-placeholder")
-                        .resizable()
-                        .scaledToFill()
-                        .overlay(Color.black.opacity(0.3))
-                }
-            }
+            CachedAsyncImage(url: URL(string: article.image_url ?? ""))
+                .scaledToFill()
+                .frame(height: 180)
+                .clipped()
+                .overlay(
+                    LinearGradient(
+                        gradient: Gradient(colors: [.clear, Color.black.opacity(0.75)]),
+                        startPoint: .center,
+                        endPoint: .bottom
+                    )
+                )
+                .cornerRadius(16, corners: [.topLeft, .topRight])
+
             .frame(height: 180)
             .clipped()
             .overlay(
