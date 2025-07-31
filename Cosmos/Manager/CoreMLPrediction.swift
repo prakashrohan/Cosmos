@@ -19,7 +19,7 @@ final class CoreMLPrediction {
         vnModel = try! VNCoreMLModel(for: mlModel.model)
     }
 
-    /// Runs a Vision classification request and returns results on the main queue.
+    // Run a Vision classification request and return results on the main queue.
     func predict(from image: UIImage,
                  completion: @escaping ([VNClassificationObservation]) -> Void)
     {

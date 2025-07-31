@@ -13,6 +13,7 @@ struct ProfileView: View {
     @State private var userEmail: String = Auth.auth().currentUser?.email ?? "Unknown Email"
     @State private var userName: String = Auth.auth().currentUser?.displayName ?? "User"
     @State private var isLoggedOut = false
+    @State private var showLogoutConfirmation = false 
 
     var body: some View {
         ZStack {
@@ -23,7 +24,7 @@ struct ProfileView: View {
                 .edgesIgnoringSafeArea(.all)
 
             VStack(spacing: 20) {
-                // 📷 Profile Image
+                // Profile Image
                 Image(systemName: "person.crop.circle.fill")
                     .resizable()
                     .scaledToFit()
@@ -32,21 +33,22 @@ struct ProfileView: View {
                     .shadow(color: .blue.opacity(0.6), radius: 10, x: 0, y: 4)
                     .padding(.top, 40)
 
-                // 🏷 User Name
+                // User Info
                 Text(userName)
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                
-                // ✉️ User Email
+
                 Text(userEmail)
                     .font(.subheadline)
                     .foregroundColor(.white.opacity(0.7))
 
                 Spacer()
 
-                // 🚪 Logout Button
-                Button(action: logout) {
+                // Logout Button with Confirmation
+                Button(action: {
+                    showLogoutConfirmation = true
+                }) {
                     Text("Logout")
                         .font(.headline)
                         .frame(maxWidth: .infinity)
@@ -58,15 +60,19 @@ struct ProfileView: View {
                 }
                 .padding(.horizontal, 30)
                 .padding(.bottom, 150)
-                
+                .alert("Are you sure you want to logout?", isPresented: $showLogoutConfirmation) {
+                    Button("Logout", role: .destructive, action: logout)
+                    Button("Cancel", role: .cancel) {}
+                }
+
             }
         }
         .fullScreenCover(isPresented: $isLoggedOut) {
-            LoginView() // Redirects to Login Screen after logout
+            LoginView()
         }
     }
 
-    // MARK: - 🔑 Logout Function
+    // MARK: - Logout Function
     private func logout() {
         do {
             try Auth.auth().signOut()
@@ -77,7 +83,8 @@ struct ProfileView: View {
     }
 }
 
-// MARK: - 📸 Preview
+
+// MARK: - Preview
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()

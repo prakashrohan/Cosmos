@@ -117,12 +117,6 @@ struct StarfieldView: View {
     }
 }
 
-// MARK: - Star Model
-struct Star: Identifiable {
-    let id = UUID()
-    var position: CGPoint
-    var size: CGFloat
-}
 
 // MARK: - Preview
 struct SplashScreenView_Previews: PreviewProvider {

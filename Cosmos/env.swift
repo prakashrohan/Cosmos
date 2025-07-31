@@ -17,3 +17,7 @@ class marsRover{
     static let APIKey = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2015-6-3&api_key=DEMO_KEY"
 }
 
+class nasaService{
+    
+    static let APIKey = "4zw9zRvjFuTbpRiREwYUd5lbgM4e4v8w3RJZQRgu"
+}

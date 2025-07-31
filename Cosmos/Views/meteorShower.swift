@@ -20,7 +20,7 @@ struct meteorShower: View {
             .ignoresSafeArea()
             
             VStack(spacing: 0) {
-                // 🌌 Top Image Banner
+                //  Top Image Banner
                 Image("home-img-4")
                     .resizable()
                     .scaledToFill()
@@ -37,7 +37,7 @@ struct meteorShower: View {
                         )
                     )
                 
-                // 🔭 Title
+                //  Title
                 Text("Meteor Showers")
                     .font(.largeTitle.bold())
                     .foregroundStyle(.white)

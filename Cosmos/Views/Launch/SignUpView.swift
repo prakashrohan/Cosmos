@@ -7,6 +7,7 @@ struct SignUpView: View {
     @State private var confirmPassword = ""
     @State private var isLoading = false
     @State private var errorMessage: String?
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         ZStack {
@@ -17,14 +18,14 @@ struct SignUpView: View {
                 .edgesIgnoringSafeArea(.all)
 
             VStack {
-                // 🏷 Title
+                //  Title
                 Text("Create Account")
                     .font(.system(size: 32, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
                     .shadow(color: .blue.opacity(0.6), radius: 10, x: 0, y: 4)
                     .padding(.bottom, 30)
 
-                // 🔳 Glassmorphic Container
+                
                 VStack(spacing: 16) {
                     CustomTextField(icon: "envelope.fill", placeholder: "Email", text: $email)
                     CustomTextField(icon: "lock.fill", placeholder: "Password", text: $password, isSecure: true)
@@ -37,7 +38,7 @@ struct SignUpView: View {
                             .padding(.top, 5)
                     }
 
-                    // 🚀 Sign-Up Button
+                    
                     Button(action: signUp) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 12)
@@ -68,11 +69,21 @@ struct SignUpView: View {
                 .cornerRadius(20)
                 .shadow(color: .black.opacity(0.6), radius: 10, x: 0, y: 4)
                 .padding(.horizontal, 30)
+                
+                Button(action: {
+                             dismiss()
+                         }) {
+                             Text("Back to Login")
+                                 .font(.system(size: 16, weight: .semibold))
+                                 .foregroundColor(.blue)
+                                 .padding(.top, 20)
+                                 .underline()
+                         }
             }
         }
     }
 
-    // 🚀 Firebase Sign-Up Function
+    //  Firebase Sign-Up Function
     private func signUp() {
         guard !email.isEmpty, !password.isEmpty, password == confirmPassword else {
             errorMessage = "Please fill in all fields correctly."
@@ -93,7 +104,7 @@ struct SignUpView: View {
     }
 }
 
-// MARK: - 🎨 Custom TextField
+// MARK: -  Custom TextField
 struct CustomTextField: View {
     var icon: String
     var placeholder: String
@@ -138,7 +149,7 @@ struct BlurView: UIViewRepresentable {
     func updateUIView(_ uiView: UIVisualEffectView, context: Context) {}
 }
 
-// MARK: - 📸 Preview
+// MARK: -  Preview
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
         SignUpView()

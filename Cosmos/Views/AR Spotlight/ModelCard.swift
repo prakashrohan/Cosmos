@@ -86,7 +86,7 @@ struct ModelCard: View {
             }
         }
     }
-
+    
     func checkIfFavorited() {
         guard let userID = Auth.auth().currentUser?.uid else {
             isFavorited = false

@@ -21,7 +21,7 @@ enum TabItem: String, CaseIterable {
 }
 
 struct AnimatedNeonTabBar: View {
-    @Binding var selected: TabItem  // 🔁 bind to parent
+    @Binding var selected: TabItem  //  bind to parent
 
     var body: some View {
         GeometryReader { geo in

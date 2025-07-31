@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import SafariServices
+
 struct SpaceNewsResponse: Codable {
     let results: [Article]
 }

@@ -91,14 +91,7 @@ struct HomeView: View {
                     .padding(.bottom, 100) // space for TabBar overlay
                 }
             }
-            // MARK: TabBar Overlay
-//            .overlay(
-//                VStack {
-//                    Spacer()
-//                    TabBar()
-//                        .padding(.bottom, -20)
-//                }
-//            )
+
         }
     }
 }
